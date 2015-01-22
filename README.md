@@ -1,6 +1,6 @@
 # ornito-sql-organizer
 
-"Organize your scripts as click button"
+"Organize your scripts as a click button"
 
 ```sh
 	Usage: node index.js --p path/to/your/scripts

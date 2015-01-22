@@ -1,7 +1,7 @@
 {
   "name": "ornito-sql-organizer",
   "version": "0.0.1",
-  "description": "Organize your scripts as click button",
+  "description": "Organize your scripts as a click button",
   "main": "index.js",
   "author": "Ornitorrinko",
   "license": "MIT",

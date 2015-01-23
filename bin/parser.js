@@ -19,7 +19,6 @@
   	var files = io.listAllFiles(path);
 
   	organize(identifyMaps(files), function(buffer){
-  			
 		var content = _.union(buffer, files)
 					.map(function(file){
 						return io.readFile(file);
@@ -37,12 +36,13 @@
 
 	function organize(maps, cb){
 		var buffer = [];
-		maps.forEach(function(mapp){
-	  		buffer = mapp.dependencies.map(function(dependency){
-	  			return findInFiles(files, dependency);
-	  		});
-  		});
-  		cb(buffer);
+		for(var mapp in maps){
+			var dependencies = maps[mapp].dependencies;
+			for(var dependency in dependencies){
+				accumulate(buffer, findInFiles(files, dependencies[dependency]));
+			}
+		}
+		cb(buffer);
 	}
 
 	function identifyMaps(files){
@@ -62,6 +62,18 @@
 
 	function tag(content){
 		content.unshift(COMMENT + TAG + new Date().toISOString());
+	}
+
+	function accumulate(buffer, script){
+		if(!script){
+			return;
+		}
+
+		if(buffer.indexOf(script) > -1){
+			return;
+		}
+
+		buffer.push(script);
 	}
 
 })(process.argv.slice(2));

@@ -7,6 +7,7 @@
 	var io = require("../utils/io");
 	var _ = require("lodash");
 	var path = argv.p;
+	var bundlePath = argv.o || p.join(process.cwd(), "build/");
 	var out = argv.o || p.join(process.cwd(), "build/bundle.sql");
 	var TAG = "Script created by #ornito-sql-organizer on ";
 	var COMMENT = "--";
@@ -14,6 +15,11 @@
 	if(!path){
 		console.log("Ornito helper => *Be sure the scripts and the maps.json have the same name. Usage: node index.js --p path/to/your/scripts/ [--o path/to/output/filename.sql]");
 		return;
+	}
+
+	if (!io.exists(bundlePath)) {
+		io.makeDir(bundlePath);
+		console.log('Build folder created !');
 	}
 
   	var files = io.listAllFiles(path);
